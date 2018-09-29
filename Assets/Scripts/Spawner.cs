@@ -5,6 +5,9 @@ using UnityEngine;
 public class Spawner : MonoBehaviour {
     public float minx, maxx, miny, maxy;
     public GameObject spawnedObj;
+    [Range(0, .1f)]
+    public float difficultyIncreaseRate;
+
     [Range(0, 10)]
     //We should probably limit this to between 0.01 and 0.05
     public float spawnTimer;
@@ -30,6 +33,7 @@ public class Spawner : MonoBehaviour {
         routineRunning = true;
         yield return new WaitForSeconds(time);
         Instantiate(spawnedObj, new Vector3(transform.position.x + Random.Range(minx, maxx), transform.position.y + Random.Range(miny, maxy), transform.position.z), Quaternion.identity, transform);
+        spawnTimer -= difficultyIncreaseRate;
         routineRunning = false;
     }
 
